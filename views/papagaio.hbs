@@ -2,20 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=<>, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
-    <h1>Web App</h1>
+
+<h1>Web App</h1>
 
     <form action="weather">
         <input type="text" id="texto" name="texto" placeholder="Escreva o seu local aqui!"/>
         <button type="submit" value=""> Pesquisar</button>
 
-
     </form>
- <script
+ 
+
+<div id="data">
+    {{data}}
+</div>
+
+<div id="temperatura">
+    {{temperaturaMax}} {{temperaturaMaxAp}} <br>
+     {{temperaturaMin}} {{temperaturaMinAp}}
+
+
+</div>
+
+<div id="icon">
+{{icon}}
+</div>
+
+<div id="percipitacao">
+{{precipitacao}}
+</div>
+
+<div id="humidade">
+{{humidade}}
+</div>
+
+<div id="vento">
+{{vento}}
+</div>
+
+
+    <h1> {{texto}} </h1>
+
+
+<h2> {{corpo}}</h2>
+
+
+<div>
+
+
+</div>
+
+
+
+<script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
