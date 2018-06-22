@@ -25,8 +25,6 @@ app.get('/weather',(req,resp)=>{
 
    var address= req.query.texto;
 
-const googleApi="AIzaSyBzvFI8XsflDcxb0cme4FTTdBI0U9adacc";
-const darkskyApi="022f9088d02a045d2289954d60f6a501";
 
 //var address=shoppingList_string;
 //var address="Rua D. Sancho I, 4480-876, Vila do Conde";
