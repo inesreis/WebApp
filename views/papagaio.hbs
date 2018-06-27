@@ -15,21 +15,43 @@
     </div>
 </header>
 
+    
     <form action="weather" class="form">
         <input type="text" id="texto" name="texto" placeholder="Escreva o seu local aqui!"/>
         <button type="submit" id="botao" value=""> Pesquisar</button>
-        <button type="button" id="favoritos" value=""> Favoritos</button>
-
+         
+          
     </form>
-    
-    <form class="form-horizontal">
-        <button type="submit" id="adicionar" class="btn btn-primary">Adicionar</button>
-        <button type="reset" id="clean"  class="btn btn-secondary">Limpar lista</button>
+
+    <div id="favoritos">
+
+ {{!--       <button id="favoritos" value="" onclick="favs()"> Favoritos</button>
+
+      <form action="local">
+        <select id="adicionarFavorito" name="local">
+            <option value="">Choose a favorite</option>
+          </select>
+</form> --}}
+
+
+ <div >
+              <p id="shooping-list-text">Nenhum texto Adicionado</p>
+              <ul class="list-group" id="shopping-list">
+              </ul>
+            </div>
+
+            <form>
+  <div class="form-group">
+            <button type="submit" id="sub" class="btn btn-primary">Adicionar</button>
+            <button type="reset" id="clean"  class="btn btn-secondary">Limpar lista</button>
         </div>
       </form>
+    </div>
+    
+    
 
 
-    <div id="fav"></div>
+    
 
 
 <div class="container">
@@ -58,84 +80,77 @@ The humidity is {{humidade}}
 <img src="./public/icons/{{icon}}.png" alt="{{summary}}" width="100%" height="100%">
 </div>
 
-<div class="shoppingList">
 
 </div>
 
-</div>
-
-
+{{!-- 
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script>
-     $(document).ready(function () {
 
-       $("#shopping-list").hide();
-       $("#item").focus();
-
-      /*
-       * check browser supports local storage
-       */
-      if (localStorage) {
-
-        var shoppingList_string = localStorage.getItem('shoppingList');
-        if (shoppingList_string) {
-          $("#shooping-list-text").hide();
-          $("#shopping-list").show();
-          var shoppingList = JSON.parse(shoppingList_string);
-          console.log(shoppingList);
-
-
-
-          $.each(shoppingList, (index, text) => {
-
+      var meusFavs =[];
+      var meusFavs_string = localStorage.gettexto('favorito');
+            
+        if(meusFavs_string) {
+          meusFavs = JSON.parse(meusFavs_string);
            
-            $("#shopping-list").append(`<li class="list-group-item">${text}</li>`);
-          });
-        
-        
-        }
+         }
 
-        
-        $("form")
-           document.getElementById("adicionar").onclick(function(){
-            var shoppingList_string = localStorage.getItem('shoppingList');
-            var shoppingList =[];
+    function favs(){
 
-            if(shoppingList_string) {
-              shoppingList = JSON.parse(shoppingList_string);
-            }
-
-            var filteredList= shoppingList.filter((item)=>{return item===$("#item").val();});
-            if(filteredList.length===0){
-            shoppingList.push($("#item").val());
-            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));  
-            }
-           });
-      }
-    });
+    var newPlace=true;
 
 
+    for( var i =0; i<meuFavs.length+1;i++){
+      if(meusFavs[i]=='{{address}}'){
+        meusFavs.splice(i,1);
+        newPlace=false;
+        break;
+  }
+}
+
+if(newPlace){
+  meusFavs.push(('{{address}}'));
+
+}
+
+localStorage.settexto('meusFavs',JSON.stringify(meusFavs));
+
+    }
+
+if(meusFavs.length!=0){
+  for(var j=0;j<meusFavs.length;j++){
+    $('#adicionarFavorito').append(`<br><option>`+meusFavs[j]+`</option>`);
+    
+}
+    
+
+</script> --}}
+ <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script>
     $(document).ready(function () {
 
        $("#shopping-list").hide();
-       $("#item").focus();
+       $("#texto").focus();
 
       /*
        * check browser supports local storage
        */
       if (localStorage) {
 
-        var shoppingList_string = localStorage.getItem('shoppingList');
+        var shoppingList_string = localStorage.gettexto('shoppingList');
         if (shoppingList_string) {
           $("#shooping-list-text").hide();
           $("#shopping-list").show();
           var shoppingList = JSON.parse(shoppingList_string);
           console.log(shoppingList);
           $.each(shoppingList, (index, text) => {
-            $("#shopping-list").append(`<li class="fav">${text}</li>`);
+            $("#shopping-list").append(`<li class="list-group-texto">${text}</li>`);
           });
         }
         
@@ -151,8 +166,8 @@ The humidity is {{humidade}}
           /*
            * add to local storage when the form is submitted
            */
-           .submit(function(){
-            var shoppingList_string = localStorage.getItem('shoppingList');
+           document.getElementById("sub").onclick=function(){
+            var shoppingList_string = localStorage.gettexto('shoppingList');
             var shoppingList =[];
 
 
@@ -160,18 +175,17 @@ The humidity is {{humidade}}
               shoppingList = JSON.parse(shoppingList_string);
             }
             var filteredList = shoppingList.filter((x) => { 
-              return x === $("#item").val()
+              return x === $("#texto").val()
             });
 
             if(filteredList.length===0){
-            shoppingList.push($("#item").val());
-            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+            shoppingList.push($("#texto").val());
+            localStorage.settexto('shoppingList', JSON.stringify(shoppingList));
           }
             console.log(localStorage);
           })
     };})
-
-</script>
+    </script>
  
 </body>
 </html>

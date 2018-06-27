@@ -18,21 +18,15 @@
     <form action="weather" class="form">
         <input type="text" id="texto" name="texto" placeholder="Escreva o seu local aqui!"/>
         <button type="submit" id="botao" value=""> Pesquisar</button>
-        <button type="button" id="favoritos" value="" onclick="myFunction()"> Favoritos</button>
-
-
+          <button type="button" id="favoritos" value="" onclick="favs()"> Favoritos</button>
+          <br>
+        <select id="adicionarFavorito" name="local">
+            <option value="">Choose a favorite</option>
+          </select>
+          
     </form>
 
-    <form class="form-horizontal">
-        <button type="submit" id="adicionar" class="btn btn-primary">Adicionar</button>
-        <button type="reset" id="clean"  class="btn btn-secondary">Limpar lista</button>
-        </div>
-      </form>
-
- <li class="fav">
-       
-    </li>
-
+  
 
  <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -40,52 +34,22 @@
         crossorigin="anonymous"></script>
     <script>
 
-    $(document).ready(function () {
-
-       $("#shopping-list").hide();
-       $("#item").focus();
-
-      /*
-       * check browser supports local storage
-       */
-      if (localStorage) {
-
-        var shoppingList_string = localStorage.getItem('shoppingList');
-        if (shoppingList_string) {
-          $("#shooping-list-text").hide();
-          $("#shopping-list").show();
-          var shoppingList = JSON.parse(shoppingList_string);
-          console.log(shoppingList);
-
-
-
-          $.each(shoppingList, (index, text) => {
-
+var meusFavs =[];
+      var meusFavs_string = localStorage.getItem('favorito');
+            
+        if(meusFavs_string) {
+          meusFavs = JSON.parse(meusFavs_string);
            
-            $("#shopping-list").append(`<li class="list-group-item">${text}</li>`);
-          });
-        
-        
-        }
+         }
 
-        
-        $("form")
-           document.getElementById("adicionar").onclick(function(){
-            var shoppingList_string = localStorage.getItem('shoppingList');
-            var shoppingList =[];
 
-            if(shoppingList_string) {
-              shoppingList = JSON.parse(shoppingList_string);
-            }
-
-            var filteredList= shoppingList.filter((item)=>{return item===$("#item").val();});
-            if(filteredList.length===0){
-            shoppingList.push($("#item").val());
-            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));  
-            }
-           });
-      }
-    });
+if(meusFavs.length!=0){
+  for(var j=0;j<meusFavs.length;j++){
+    $('#adicionarFavorito').append(`<br><option>`+meusFavs[j]+`</option>`);
+    
+}
+    
+   
     </script>
 
 </body>
