@@ -5,21 +5,41 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Web App</h1>
+   
+    <div id="webapp">
+    <h1>Weather App</h1>
+    </div>
 
-    <form action="weather">
+
+
+    <form action="weather" class="form">
         <input type="text" id="texto" name="texto" placeholder="Escreva o seu local aqui!"/>
-        <button type="submit" value=""> Pesquisar</button>
+        <button type="submit" id="botao" value=""> Pesquisar</button>
+        <button type="button" id="favoritos" value="" onclick="myFunction()"> Favoritos</button>
 
 
     </form>
+
+    <form class="form-horizontal">
+        <button type="submit" id="adicionar" class="btn btn-primary">Adicionar</button>
+        <button type="reset" id="clean"  class="btn btn-secondary">Limpar lista</button>
+        </div>
+      </form>
+
+ <li class="fav">
+       
+    </li>
+
+
  <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script>
+
     $(document).ready(function () {
 
        $("#shopping-list").hide();
@@ -47,20 +67,10 @@
         
         
         }
+
         
         $("form")
-          /*
-           * clear local storage when the form is reseted
-           */
-          .on('reset', function(){
-            console.log('cleaning!...');
-            localStorage.clear();
-            location.reload();
-          })
-          /*
-           * add to local storage when the form is submitted
-           */
-           .submit(function(){
+           document.getElementById("adicionar").onclick(function(){
             var shoppingList_string = localStorage.getItem('shoppingList');
             var shoppingList =[];
 
@@ -68,19 +78,15 @@
               shoppingList = JSON.parse(shoppingList_string);
             }
 
-
-var filteredList= shoppingList.filter((item)=>{return item===$("#item").val();});
-    if(filteredList.length===0){
-      shoppingList.push($("#item").val());
-      localStorage.setItem('shoppingList', JSON.stringify(shoppingList));  
-    }
-    
-           
-            console.log(localStorage);
-          })
+            var filteredList= shoppingList.filter((item)=>{return item===$("#item").val();});
+            if(filteredList.length===0){
+            shoppingList.push($("#item").val());
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));  
+            }
+           });
       }
     });
-
+    </script>
 
 </body>
 </html>

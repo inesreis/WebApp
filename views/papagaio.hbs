@@ -5,57 +5,64 @@
     <meta name="viewport" content="width=<>, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>@import url('https://fonts.googleapis.com/css?family=Rokkitt');</style>
 </head>
 <body>
+<header>
+   <div id="webapp">
+    <h1>Weather App</h1>
+    </div>
+</header>
 
-<h1>Web App</h1>
-
-    <form action="weather">
+    <form action="weather" class="form">
         <input type="text" id="texto" name="texto" placeholder="Escreva o seu local aqui!"/>
-        <button type="submit" value=""> Pesquisar</button>
+        <button type="submit" id="botao" value=""> Pesquisar</button>
+        <button type="button" id="favoritos" value=""> Favoritos</button>
 
     </form>
- 
+    
+    <form class="form-horizontal">
+        <button type="submit" id="adicionar" class="btn btn-primary">Adicionar</button>
+        <button type="reset" id="clean"  class="btn btn-secondary">Limpar lista</button>
+        </div>
+      </form>
 
-<div id="data">
-    {{data}}
+
+    <div id="fav"></div>
+
+
+<div class="container">
+  <div class="data">{{data}}</div>
+  <div class="morada">{{morada}}</div>
 </div>
+
 
 <div id="temperatura">
-    {{temperaturaMax}} {{temperaturaMaxAp}} <br>
-     {{temperaturaMin}} {{temperaturaMinAp}}
-
-
+    The temperature is {{temperaturaMax}} ºC, and it feels like {{temperaturaMaxAp}} ºC
 </div>
 
-<div id="icon">
-{{icon}}
-</div>
-
-<div id="percipitacao">
-{{precipitacao}}
+<div id="precipitacao">
+The precipitation is {{precipitacao}}
 </div>
 
 <div id="humidade">
-{{humidade}}
+The humidity is {{humidade}}
 </div>
 
 <div id="vento">
-{{vento}}
+    The wind's velocity is {{vento}}
 </div>
 
+<div id="icon">
+<img src="./public/icons/{{icon}}.png" alt="{{summary}}" width="100%" height="100%">
+</div>
 
-    <h1> {{texto}} </h1>
-
-
-<h2> {{corpo}}</h2>
-
-
-<div>
-
+<div class="shoppingList">
 
 </div>
 
+</div>
 
 
 <script
@@ -63,7 +70,7 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script>
-    $(document).ready(function () {
+     $(document).ready(function () {
 
        $("#shopping-list").hide();
        $("#item").focus();
@@ -90,6 +97,47 @@
         
         
         }
+
+        
+        $("form")
+           document.getElementById("adicionar").onclick(function(){
+            var shoppingList_string = localStorage.getItem('shoppingList');
+            var shoppingList =[];
+
+            if(shoppingList_string) {
+              shoppingList = JSON.parse(shoppingList_string);
+            }
+
+            var filteredList= shoppingList.filter((item)=>{return item===$("#item").val();});
+            if(filteredList.length===0){
+            shoppingList.push($("#item").val());
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));  
+            }
+           });
+      }
+    });
+
+
+    $(document).ready(function () {
+
+       $("#shopping-list").hide();
+       $("#item").focus();
+
+      /*
+       * check browser supports local storage
+       */
+      if (localStorage) {
+
+        var shoppingList_string = localStorage.getItem('shoppingList');
+        if (shoppingList_string) {
+          $("#shooping-list-text").hide();
+          $("#shopping-list").show();
+          var shoppingList = JSON.parse(shoppingList_string);
+          console.log(shoppingList);
+          $.each(shoppingList, (index, text) => {
+            $("#shopping-list").append(`<li class="fav">${text}</li>`);
+          });
+        }
         
         $("form")
           /*
@@ -107,23 +155,23 @@
             var shoppingList_string = localStorage.getItem('shoppingList');
             var shoppingList =[];
 
+
             if(shoppingList_string) {
               shoppingList = JSON.parse(shoppingList_string);
             }
+            var filteredList = shoppingList.filter((x) => { 
+              return x === $("#item").val()
+            });
 
-
-var filteredList= shoppingList.filter((item)=>{return item===$("#item").val();});
-    if(filteredList.length===0){
-      shoppingList.push($("#item").val());
-      localStorage.setItem('shoppingList', JSON.stringify(shoppingList));  
-    }
-    
-           
+            if(filteredList.length===0){
+            shoppingList.push($("#item").val());
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+          }
             console.log(localStorage);
           })
-      }
-    });
+    };})
 
-
+</script>
+ 
 </body>
 </html>
